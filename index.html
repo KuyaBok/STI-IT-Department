@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>STI College Calamba — Home</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Favicon via emoji -->
+  <link rel="icon" href="Assets/Images/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" aria-label="Main navigation">
+    <div class="nav-brand">
+      <div class="nav-logo">
+        <img src="Assets/Images/logo_sti.png" alt="STI College logo" class="nav-logo-img" />
+      </div>
+      <div class="nav-brand-text">
+        <span>STI College</span>
+        <span>Calamba, Laguna</span>
+      </div>
+    </div>
+
+    <div class="nav-links" id="navLinks">
+      <a href="index.html" class="active">Home</a>
+      <a href="#about">About</a>
+      <a href="#programs">Programs</a>
+      <a href="dashboard.html" class="btn-nav">IT Faculty Dashboard →</a>
+    </div>
+
+    <div class="nav-toggle" id="navToggle" aria-label="Toggle menu" role="button" tabindex="0">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="home">
+    <div class="hero-bg-shapes" aria-hidden="true">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span>🎓</span>
+        <span>Excellence in Technology Education</span>
+      </div>
+
+      <h1 class="hero-title">
+        Welcome to<br/>
+        <span class="highlight">STI College</span><br/>
+        Calamba
+      </h1>
+
+      <p class="hero-subtitle">
+        Empowering future IT professionals with world-class education,
+        industry-driven programs, and a commitment to excellence since 1983.
+      </p>
+
+      <div class="hero-cta">
+        <a href="dashboard.html" class="btn-primary">
+          <span>📊</span> View IT Faculty Dashboard
+        </a>
+        <a href="#about" class="btn-outline">
+          <span>ℹ️</span> Learn More
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-number" data-target="6">0</span>
+          <span class="stat-label">IT Faculty</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" data-target="3">0</span>
+          <span class="stat-label">IT Programs</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" data-target="40">0</span>
+          <span class="stat-label">Years of Excellence</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" data-target="5000">0</span>
+          <span class="stat-label">Alumni Worldwide</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section class="about-section" id="about">
+    <div class="section-header">
+      <span class="section-tag">About Us</span>
+      <h2 class="section-title">Shaping the Future of Technology</h2>
+      <p class="section-desc">Discover what makes STI College Calamba a premier destination for IT education in Laguna.</p>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-visual">
+        <div class="about-card-main">
+          <h3>🏫 STI College Calamba</h3>
+          <p>National Highway, Brgy. Real, Calamba City, Laguna 4027</p>
+          <br/>
+          <p style="font-size:.82rem; opacity:.65;">Part of the STI Education Systems Holdings, Inc. — one of the largest networks of IT-focused colleges in the Philippines.</p>
+          <br/>
+          <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:.5rem;">
+            <div style="background:rgba(255,255,255,.15); border-radius:8px; padding:.5rem .9rem; font-size:.8rem;">
+              <strong style="display:block; font-size:1.1rem;">CHED</strong>Accredited
+            </div>
+            <div style="background:rgba(255,255,255,.15); border-radius:8px; padding:.5rem .9rem; font-size:.8rem;">
+              <strong style="display:block; font-size:1.1rem;">ISO</strong>Certified
+            </div>
+            <div style="background:rgba(255,255,255,.15); border-radius:8px; padding:.5rem .9rem; font-size:.8rem;">
+              <strong style="display:block; font-size:1.1rem;">TESDA</strong>Registered
+            </div>
+          </div>
+        </div>
+        <div class="about-card-float">
+          <strong>#1</strong>
+          <span>IT School<br/>in Calamba</span>
+        </div>
+      </div>
+
+      <div class="about-content">
+        <h2>A Legacy of <span style="color:var(--sti-blue-mid)">Quality Education</span></h2>
+        <p>
+          STI College Calamba has been at the forefront of technology education, producing
+          thousands of IT professionals who are now making their mark in the local and
+          global tech industry.
+        </p>
+        <p>
+          Our IT Department prides itself on a team of highly qualified and dedicated faculty
+          members who bring both academic expertise and real-world industry experience to the
+          classroom.
+        </p>
+
+        <ul class="about-list">
+          <li><span class="check-icon">✓</span> State-of-the-art computer laboratories</li>
+          <li><span class="check-icon">✓</span> Industry-aligned curriculum updated annually</li>
+          <li><span class="check-icon">✓</span> Experienced and licensed IT faculty</li>
+          <li><span class="check-icon">✓</span> Strong industry partnerships for OJT & employment</li>
+          <li><span class="check-icon">✓</span> Active research and innovation programs</li>
+          <li><span class="check-icon">✓</span> Scholarship opportunities available</li>
+        </ul>
+
+        <br/>
+        <a href="dashboard.html" class="btn-primary" style="display:inline-flex;">
+          Meet the IT Faculty →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROGRAMS ===== -->
+  <section class="programs-section" id="programs">
+    <div class="section-header">
+      <span class="section-tag">IT Department</span>
+      <h2 class="section-title">Our IT Programs</h2>
+      <p class="section-desc">Choose from our industry-recognized information technology degree programs.</p>
+    </div>
+
+    <div class="programs-grid">
+      <div class="program-card">
+        <div class="program-icon">💻</div>
+        <h3>BS Information Technology</h3>
+        <p>Core program covering software development, networking, databases, and systems administration.</p>
+        <span class="program-badge featured">★ Flagship Program</span>
+      </div>
+
+      <div class="program-card">
+        <div class="program-icon">🖥️</div>
+        <h3>BS Computer Science</h3>
+        <p>Theory and practice of computing — algorithms, AI, data structures, and machine learning.</p>
+        <span class="program-badge">4-Year Program</span>
+      </div>
+
+      <div class="program-card">
+        <div class="program-icon">🌐</div>
+        <h3>BS Computer Engineering</h3>
+        <p>Bridging hardware and software — embedded systems, digital electronics, and IoT.</p>
+        <span class="program-badge">4-Year Program</span>
+      </div>
+
+      <div class="program-card">
+        <div class="program-icon">📱</div>
+        <h3>Mobile Development</h3>
+        <p>Specialization track focusing on iOS and Android app development with modern frameworks.</p>
+        <span class="program-badge">Specialization</span>
+      </div>
+
+      <div class="program-card">
+        <div class="program-icon">🔒</div>
+        <h3>Cybersecurity</h3>
+        <p>Specialization in ethical hacking, network security, digital forensics, and risk management.</p>
+        <span class="program-badge">Specialization</span>
+      </div>
+
+      <div class="program-card">
+        <div class="program-icon">📊</div>
+        <h3>Data Analytics</h3>
+        <p>Specialization covering data science, big data, business intelligence, and visualization.</p>
+        <span class="program-badge">Specialization</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA BANNER ===== -->
+  <section class="cta-banner">
+    <h2>Meet the IT Department Faculty</h2>
+    <p>Explore our complete list of dedicated IT instructors and professors on the dashboard.</p>
+    <a href="dashboard.html" class="btn-primary">
+      <span>📊</span> Open Faculty Dashboard
+    </a>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-inner">
+      <div class="nav-brand" style="justify-content:center;">
+        <div class="nav-logo">
+          <img src="Assets/Images/favicon.ico" alt="STI College logo" class="nav-logo-img" />
+        </div>
+        <div class="nav-brand-text">
+          <span class="footer-brand">STI College Calamba</span>
+          <span style="font-size:.78rem; color:rgba(255,255,255,.5);">Information Technology Department</span>
+        </div>
+      </div>
+
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="index.html">Home</a>
+        <a href="#about">About</a>
+        <a href="#programs">Programs</a>
+        <a href="dashboard.html">Faculty Dashboard</a>
+      </nav>
+
+      <p class="footer-copy">© 2024 STI College Calamba — IT Department Faculty Directory. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

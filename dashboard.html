@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IT Faculty Dashboard — STI College Calamba</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="Assets/Images/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" aria-label="Main navigation">
+    <div class="nav-brand">
+      <div class="nav-logo">
+        <img src="Assets/Images/logo_sti.png" alt="STI College logo" class="nav-logo-img" />
+      </div>
+      <div class="nav-brand-text">
+        <span>STI College</span>
+        <span>Calamba, Laguna</span>
+      </div>
+    </div>
+
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#programs">Programs</a>
+      <a href="dashboard.html" class="active btn-nav">IT Faculty Dashboard</a>
+    </div>
+
+    <div class="nav-toggle" id="navToggle" aria-label="Toggle menu" role="button" tabindex="0">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- ===== DASHBOARD TOPBAR ===== -->
+  <div class="db-topbar">
+    <div>
+      <h1>📋 IT Department Faculty Directory</h1>
+      <p>STI College Calamba · Academic Year 2024–2025</p>
+    </div>
+    <a href="index.html" class="btn-outline" style="font-size:.85rem; padding:.45rem 1.1rem; border-radius:20px; border:1.5px solid var(--border); color:var(--text-muted);">
+      ← Back to Home
+    </a>
+  </div>
+
+  <!-- ===== SUMMARY CARDS ===== -->
+  <div class="db-summary" id="dbSummary">
+    <div class="summary-card">
+      <div class="summary-icon si-blue">👨‍🏫</div>
+      <div class="summary-info">
+        <strong id="totalFaculty">0</strong>
+        <span>Total Faculty</span>
+      </div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-icon si-green">✅</div>
+      <div class="summary-info">
+        <strong id="fullTimeFaculty">0</strong>
+        <span>Full-Time</span>
+      </div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-icon si-gold">⏰</div>
+      <div class="summary-info">
+        <strong id="partTimeFaculty">0</strong>
+        <span>Part-Time</span>
+      </div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-icon si-purple">🎓</div>
+      <div class="summary-info">
+        <strong id="mastersFaculty">0</strong>
+        <span>With Master's</span>
+      </div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-icon si-blue">🏅</div>
+      <div class="summary-info">
+        <strong id="licensedFaculty">0</strong>
+        <span>Licensed (PRC)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TOOLBAR ===== -->
+  <div class="faculty-toolbar">
+    <div class="toolbar-left">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input
+          type="search"
+          id="searchInput"
+          placeholder="Search faculty..."
+          aria-label="Search faculty"
+        />
+      </div>
+
+      <select class="filter-select" id="filterType" aria-label="Filter by employment type">
+        <option value="all">All Types</option>
+        <option value="Full-Time">Full-Time</option>
+        <option value="Part-Time">Part-Time</option>
+      </select>
+
+      <select class="filter-select" id="filterSpecialization" aria-label="Filter by specialization">
+        <option value="all">All Specializations</option>
+        <option value="Software Development">Software Development</option>
+        <option value="Networking">Networking</option>
+        <option value="Cybersecurity">Cybersecurity</option>
+        <option value="Data Science">Data Science</option>
+        <option value="Web Development">Web Development</option>
+        <option value="Mobile Development">Mobile Development</option>
+        <option value="Database">Database</option>
+        <option value="Systems">Systems</option>
+      </select>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:.75rem; flex-wrap:wrap;">
+      <span id="resultCount" style="font-size:.82rem; color:var(--text-muted);"></span>
+      <div class="view-toggle" role="group" aria-label="View toggle">
+        <button class="view-btn active" id="btnGrid" aria-label="Grid view" title="Grid View">⊞</button>
+        <button class="view-btn" id="btnList" aria-label="List view" title="List View">☰</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FACULTY SECTION ===== -->
+  <div class="faculty-section">
+
+    <!-- Grid View -->
+    <div class="faculty-grid" id="facultyGrid"></div>
+
+    <!-- List View -->
+    <div class="faculty-list-view hidden" id="facultyListView">
+      <table class="fl-table" aria-label="Faculty list">
+        <thead>
+          <tr>
+            <th>Faculty Member</th>
+            <th>Position</th>
+            <th>Specialization</th>
+            <th>Degree</th>
+            <th>Type</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="facultyTableBody"></tbody>
+      </table>
+    </div>
+
+    <!-- No Results -->
+    <div class="no-results" id="noResults">
+      <div class="no-results-icon">🔎</div>
+      <p><strong>No faculty found</strong></p>
+      <p style="font-size:.85rem; color:var(--text-muted); margin-top:.3rem;">Try adjusting your search or filter.</p>
+    </div>
+
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-inner">
+      <div class="nav-brand" style="justify-content:center;">
+        <div class="nav-logo">
+          <img src="Assets/Images/favicon.ico" alt="STI College logo" class="nav-logo-img" />
+        </div>
+        <div class="nav-brand-text">
+          <span style="color:var(--sti-gold); font-weight:700;">STI College Calamba</span>
+          <span style="font-size:.78rem; color:rgba(255,255,255,.5);">Information Technology Department</span>
+        </div>
+      </div>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="index.html">Home</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#programs">Programs</a>
+        <a href="dashboard.html">Faculty Dashboard</a>
+      </nav>
+      <p class="footer-copy">© 2024 STI College Calamba — IT Department Faculty Directory. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

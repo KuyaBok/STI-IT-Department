@@ -107,6 +107,58 @@
   counters.forEach(c => observer.observe(c));
 })();
 
+// Register a service worker so the site can be installed as a PWA.
+(function registerServiceWorker() {
+  const supportsSW = "serviceWorker" in navigator;
+  const isHttp = location.protocol === "http:" || location.protocol === "https:";
+
+  if (!supportsSW || !isHttp) return;
+
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("service-worker.js").catch(() => {
+      // Keep silent for production users; installability just won't be available.
+    });
+  });
+})();
+
+// Show an install button only when the browser supports install prompting.
+(function initInstallPrompt() {
+  const inStandaloneMode =
+    window.matchMedia("(display-mode: standalone)").matches ||
+    window.navigator.standalone === true;
+
+  if (inStandaloneMode) return;
+
+  const installBtn = document.createElement("button");
+  installBtn.className = "install-app-btn";
+  installBtn.type = "button";
+  installBtn.textContent = "Install App";
+  installBtn.setAttribute("aria-label", "Install this app");
+  document.body.appendChild(installBtn);
+
+  let deferredPrompt = null;
+
+  window.addEventListener("beforeinstallprompt", event => {
+    event.preventDefault();
+    deferredPrompt = event;
+    installBtn.classList.add("show");
+  });
+
+  installBtn.addEventListener("click", async () => {
+    if (!deferredPrompt) return;
+
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    installBtn.classList.remove("show");
+  });
+
+  window.addEventListener("appinstalled", () => {
+    installBtn.classList.remove("show");
+    installBtn.remove();
+  });
+})();
+
 // ── Faculty Data ───────────────────────────────────────────────
 // Faculty photos are loaded from Assets/Images.
 // Use exact filenames (including spaces and extension) for each instructor image.

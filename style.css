@@ -155,6 +155,16 @@ ul { list-style: none; }
   border-radius: 20px;
   margin-bottom: 1.5rem;
 }
+.hero-badge span:first-child {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: rgba(245,168,0,.25);
+  border-radius: 50%;
+  font-size: .95rem;
+}
 
 .hero-title {
   font-size: clamp(2.2rem, 5vw, 3.5rem);
@@ -190,6 +200,16 @@ ul { list-style: none; }
   transition: all var(--transition);
   box-shadow: 0 4px 16px rgba(245,168,0,.35);
 }
+.btn-primary span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: rgba(0,48,135,.15);
+  border-radius: 50%;
+  font-size: 1rem;
+}
 .btn-primary:hover { background: var(--sti-gold-lt); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(245,168,0,.4); }
 
 .btn-outline {
@@ -205,6 +225,14 @@ ul { list-style: none; }
   border: 2px solid rgba(255,255,255,.4);
   cursor: pointer;
   transition: all var(--transition);
+}
+.btn-outline span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  font-size: .9rem;
 }
 .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,.08); }
 
@@ -310,7 +338,63 @@ section { padding: 5rem 2rem; }
 }
 
 /* ============================================================
-   PROGRAMS SECTION (landing)
+   PAGE HEADER (Programs & Facilities pages)
+   ============================================================ */
+.page-header {
+  background: linear-gradient(135deg, var(--sti-blue) 0%, #001a5c 60%, #000d33 100%);
+  color: var(--white);
+  text-align: center;
+  padding: 5rem 2rem 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(245,168,0,.05), transparent);
+  pointer-events: none;
+}
+
+.page-header-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.page-header .section-tag {
+  display: inline-block;
+  background: rgba(245,168,0,.15);
+  border: 1px solid rgba(245,168,0,.4);
+  color: var(--sti-gold-lt);
+  font-size: .78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  padding: .3rem .9rem;
+  border-radius: 20px;
+  margin-bottom: 1rem;
+}
+
+.page-title {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 900;
+  color: var(--white);
+  margin-bottom: 1rem;
+}
+
+.page-subtitle {
+  font-size: clamp(.95rem, 2vw, 1.1rem);
+  color: rgba(255,255,255,.75);
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ============================================================
+   PROGRAMS SECTION
    ============================================================ */
 .programs-section { background: var(--off-white); }
 
@@ -360,6 +444,109 @@ section { padding: 5rem 2rem; }
 .program-badge.featured { background: rgba(245,168,0,.15); color: #a06a00; }
 
 /* ============================================================
+   FACILITIES SECTION (landing)
+   ============================================================ */
+.facilities-section { background: var(--white); }
+
+.facilities-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin-inline: auto;
+}
+
+.facility-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,.05);
+  transition: transform var(--transition), box-shadow var(--transition);
+  cursor: default;
+}
+.facility-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--card-shadow);
+}
+
+.facility-img-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--sti-blue), var(--sti-blue-mid));
+}
+.facility-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .4s ease;
+}
+.facility-card:hover .facility-img-wrap img { transform: scale(1.07); }
+
+.facility-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(0,30,90,.55) 100%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: .75rem;
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+.facility-card:hover .facility-overlay { opacity: 1; }
+
+.facility-icon {
+  font-size: 1.6rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,.4));
+}
+
+.facility-count {
+  position: absolute;
+  top: .6rem;
+  right: .6rem;
+  background: var(--sti-gold);
+  color: var(--sti-blue);
+  font-size: .7rem;
+  font-weight: 700;
+  padding: .2rem .55rem;
+  border-radius: 20px;
+}
+
+.facility-info {
+  padding: 1rem 1.1rem 1.2rem;
+}
+.facility-info h3 {
+  font-size: .95rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: .3rem;
+}
+.facility-info p {
+  font-size: .8rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+/* Responsive: 2 columns on tablet, 1 on mobile */
+@media (max-width: 1024px) {
+  .facilities-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 540px) {
+  .facilities-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
    CTA BANNER (landing)
    ============================================================ */
 .cta-banner {
@@ -393,6 +580,93 @@ footer {
 .footer-links a { font-size: .82rem; transition: color var(--transition); }
 .footer-links a:hover { color: var(--sti-gold); }
 .footer-copy { font-size: .78rem; color: rgba(255,255,255,.4); margin-top: .5rem; }
+
+/* ============================================================
+   LIGHTBOX
+   ============================================================ */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(0, 0, 0, .88);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem;
+  cursor: zoom-out;
+}
+.lightbox.active { display: flex; }
+
+.lightbox-img {
+  max-width: 90vw;
+  max-height: 80vh;
+  border-radius: var(--radius);
+  box-shadow: 0 12px 48px rgba(0,0,0,.6);
+  object-fit: contain;
+  cursor: default;
+  animation: lb-in .2s ease;
+}
+
+@keyframes lb-in {
+  from { opacity: 0; transform: scale(.93); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.lightbox-caption {
+  color: rgba(255,255,255,.8);
+  font-size: .9rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.5rem;
+  background: rgba(255,255,255,.15);
+  border: none;
+  color: var(--white);
+  font-size: 1.75rem;
+  line-height: 1;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition);
+}
+.lightbox-close:hover { background: rgba(255,255,255,.3); }
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,.15);
+  border: none;
+  color: var(--white);
+  font-size: 2.5rem;
+  line-height: 1;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition);
+  z-index: 10;
+}
+.lightbox-nav:hover { background: rgba(255,255,255,.3); }
+.lightbox-nav.hidden { display: none; }
+.lightbox-prev { left: 1.5rem; }
+.lightbox-next { right: 1.5rem; }
+
+/* Make facility images show pointer cursor */
+.facility-img-wrap { cursor: zoom-in; }
 
 /* ============================================================
    DASHBOARD PAGE

@@ -2,7 +2,70 @@
    STI College Calamba — IT Faculty Dashboard Script
    ============================================================= */
 
-// ── Navbar toggle ──────────────────────────────────────────────
+// ── Facility Lightbox ──────────────────────────────────────────
+(function initLightbox() {
+  const lightbox  = document.getElementById('lightbox');
+  const lbImg     = document.getElementById('lightboxImg');
+  const lbCap     = document.getElementById('lightboxCaption');
+  const lbClose   = document.getElementById('lightboxClose');
+  const lbPrev    = document.getElementById('lightboxPrev');
+  const lbNext    = document.getElementById('lightboxNext');
+  if (!lightbox) return;
+
+  let images  = [];
+  let current = 0;
+
+  const show = (index) => {
+    current    = index;
+    lbImg.src  = images[current];
+    lbImg.alt  = lbCap.textContent;
+    lbPrev.classList.toggle('hidden', images.length <= 1 || current === 0);
+    lbNext.classList.toggle('hidden', images.length <= 1 || current === images.length - 1);
+    if (images.length > 1) {
+      lbCap.textContent = `${lbCap.dataset.name} — ${current + 1} / ${images.length}`;
+    }
+  };
+
+  const open = (imgList, startIndex, caption) => {
+    images = imgList;
+    lbCap.textContent    = caption;
+    lbCap.dataset.name   = caption;
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    show(startIndex);
+  };
+
+  const close = () => {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+    images    = [];
+  };
+
+  document.querySelectorAll('.facility-img-wrap').forEach(wrap => {
+    wrap.addEventListener('click', () => {
+      const img     = wrap.querySelector('img');
+      const card    = wrap.closest('.facility-card');
+      const caption = card ? card.querySelector('.facility-info h3').textContent : img.alt;
+      const raw     = wrap.getAttribute('data-images');
+      const imgList = raw ? JSON.parse(raw) : [img.src];
+      open(imgList, 0, caption);
+    });
+  });
+
+  lbPrev.addEventListener('click', e => { e.stopPropagation(); show(current - 1); });
+  lbNext.addEventListener('click', e => { e.stopPropagation(); show(current + 1); });
+  lbClose.addEventListener('click', close);
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) close(); });
+  document.addEventListener('keydown', e => {
+    if (!lightbox.classList.contains('active')) return;
+    if (e.key === 'Escape')      close();
+    if (e.key === 'ArrowLeft'  && current > 0)              show(current - 1);
+    if (e.key === 'ArrowRight' && current < images.length - 1) show(current + 1);
+  });
+})();
+
+
 (function initNavToggle() {
   const toggle = document.getElementById('navToggle');
   const links  = document.getElementById('navLinks');

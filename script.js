@@ -76,6 +76,142 @@
   toggle.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') open(); });
 })();
 
+// Theme toggle: light mode matches the earlier design, dark mode uses premium theme.
+(function initThemeToggle() {
+  const storageKey = 'sti-theme';
+  const body = document.body;
+  const navbar = document.querySelector('.navbar');
+  if (!body || !navbar) return;
+
+  let toggle = null;
+  let revealLayer = null;
+  let revealTimeout = null;
+
+  const prefersReducedMotion = () => {
+    try {
+      return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    } catch (_) {
+      return false;
+    }
+  };
+
+  const readSavedTheme = () => {
+    try {
+      return localStorage.getItem(storageKey) || 'light';
+    } catch (_) {
+      return 'light';
+    }
+  };
+
+  const ensureRevealLayer = () => {
+    if (revealLayer) return;
+
+    revealLayer = document.createElement('div');
+    revealLayer.className = 'theme-scale-reveal';
+    revealLayer.setAttribute('aria-hidden', 'true');
+    body.appendChild(revealLayer);
+  };
+
+  const playReveal = (nextTheme) => {
+    ensureRevealLayer();
+    revealLayer.classList.remove('is-animating');
+      revealLayer.style.setProperty('--reveal-bg', nextTheme === 'dark' ? '#070b12' : '#f9fafb'); // Set overlay background to target theme color
+    // Force reflow so rapid repeated clicks restart the reveal animation.
+    void revealLayer.offsetWidth;
+    revealLayer.classList.add('is-animating');
+
+    if (revealTimeout) clearTimeout(revealTimeout);
+    revealTimeout = setTimeout(() => {
+      if (!revealLayer) return;
+      revealLayer.classList.remove('is-animating');
+      revealTimeout = null;
+    }, 620);
+  };
+
+  const applyTheme = (theme, options = {}) => {
+    const shouldPersist = options.persist !== false;
+    const shouldAnimate = options.animate === true;
+    const nextTheme = theme === 'dark' ? 'dark' : 'light';
+
+    if (shouldAnimate) playReveal(nextTheme);
+
+    body.setAttribute('data-theme', nextTheme);
+    if (shouldPersist) {
+      try {
+        localStorage.setItem(storageKey, nextTheme);
+      } catch (_) {}
+    }
+    if (toggle) {
+      const isDark = nextTheme === 'dark';
+      toggle.setAttribute('data-theme', nextTheme);
+      toggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+      toggle.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+      toggle.title = isDark ? 'Switch to light mode' : 'Switch to dark mode';
+    }
+  };
+
+  const handleToggle = () => {
+    const currentTheme = body.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    applyTheme(nextTheme, { animate: true });
+  };
+
+  const syncThemeFromStorage = () => {
+    applyTheme(readSavedTheme(), { persist: false });
+  };
+
+  const savedTheme = readSavedTheme();
+
+  applyTheme(savedTheme);
+
+  toggle = document.createElement('button');
+  toggle.type = 'button';
+  toggle.className = 'theme-toggle-btn';
+  toggle.innerHTML = `
+    <span class="theme-flip-card" aria-hidden="true">
+      <span class="theme-face theme-face-front">&#9728;</span>
+      <span class="theme-face theme-face-back">&#9790;</span>
+    </span>
+  `;
+
+  toggle.addEventListener('click', handleToggle);
+  toggle.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleToggle();
+    }
+  });
+
+  const navToggle = document.getElementById('navToggle');
+  if (navToggle && navToggle.parentElement === navbar) {
+    navbar.insertBefore(toggle, navToggle);
+  } else {
+    navbar.appendChild(toggle);
+  }
+
+  syncThemeFromStorage();
+
+  window.addEventListener('storage', (event) => {
+    if (event.key === storageKey) syncThemeFromStorage();
+  });
+
+  window.addEventListener('pageshow', () => {
+    syncThemeFromStorage();
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') syncThemeFromStorage();
+  });
+})();
+
+// Keep footer copyright year current across all pages.
+(function initFooterYear() {
+  const year = String(new Date().getFullYear());
+  document.querySelectorAll('.footer-copy').forEach(el => {
+    el.textContent = el.textContent.replace(/\b20\d{2}\b/, year);
+  });
+})();
+
 // ── Hero counter animation (landing page) ─────────────────────
 (function initCounters() {
   const counters = document.querySelectorAll('[data-target]');
@@ -183,9 +319,17 @@ const FACULTY = [
     specialization: "Information Technology",
     degree:         "B.S. Information Technology",
     type:           "Full-Time",
-    licensed:       true,
-    subjects:       ["Programming", "Data Structures"],
-    email:          "jm.coral@sti.edu.ph",
+    licensed:       false,
+    subjects:       [
+      "Java Related Subjects (OOP palang)",
+      "Mobile Programming (Mobile App Programming 1 and 2, Mobile Technologies)",
+      "Database Programming (Copro6)",
+      "Information Assurance and Security (Cybersec, Data Privacy)",
+      "Professional issues in Information Technology",
+      "Application Development and Modern Technologies/Software Design",
+      "Programming Languages"
+    ],
+    email:          "joiemar.coral@calamba.sti.edu.ph",
     experience:     "—",
     image:          "Assets/Images/Sir Coral.png"
   },
@@ -196,11 +340,11 @@ const FACULTY = [
     specialization: "Information Technology",
     degree:         "B.S. Information Technology",
     type:           "Full-Time",
-    licensed:       true,
+    licensed:       false,
     subjects:       ["Networking", "Systems Administration"],
     email:          "jp.daludado@sti.edu.ph",
     experience:     "—",
-    image:          "images/jon-daludado.jpg"
+    image:          "Assets/Images/Sir Daludado.jpg"
   },
   {
     id:             4,
@@ -209,8 +353,17 @@ const FACULTY = [
     specialization: "Information Technology",
     degree:         "B.S. Information Technology",
     type:           "Full-Time",
-    licensed:       true,
-    subjects:       ["Database Management", "Software Development"],
+    licensed:       false,
+    subjects:       [
+      "Cybersecurity",
+      "Introduction to Computing",
+      "Computer Programming",
+      "Human Computer Interaction",
+      "IT Service Management",
+      "Professional Issues in Information System and Technology",
+      "Object Oriented Programming",
+      "Technopreneurship"
+    ],
     email:          "d.belarmino@sti.edu.ph",
     experience:     "—",
     image:          "Assets/Images/Sir Dexter.jpg"
@@ -222,10 +375,17 @@ const FACULTY = [
     specialization: "Information Technology",
     degree:         "B.S. Information Technology",
     type:           "Full-Time",
-    licensed:       true,
-    subjects:       ["Web Design", "UI/UX"],
-    email:          "d.villanueva@sti.edu.ph",
-    experience:     "—",
+    licensed:       false,
+    subjects:       [
+      "Object-Oriented Programming (OOP)",
+      "Operating Systems (OS/PlatTech)",
+      "Systems Integration and Architecture (SAP)",
+      "Systems Administration and Maintenance (SAM)",
+      "Computer Productivity Tools (CPTools)"
+    ],
+    email:          "danyca.villanueva@calamba.sti.edu.ph",
+    teachingExperience: "9 months",
+    stiExperience:      "9 months",
     image:          "Assets/Images/Maam Villanueva.jpg"
   },
   {
@@ -235,7 +395,7 @@ const FACULTY = [
     specialization: "Information Technology",
     degree:         "B.S. Information Technology",
     type:           "Full-Time",
-    licensed:       true,
+    licensed:       false,
     subjects:       ["Computer Programming", "IT Fundamentals"],
     email:          "e.palmones@sti.edu.ph",
     experience:     "—",
@@ -248,7 +408,7 @@ const FACULTY = [
     specialization: "Information Technology",
     degree:         "B.S. Information Technology",
     type:           "Part-Time",
-    licensed:       true,
+    licensed:       false,
     subjects:       ["Information Technology", "Computer Applications"],
     email:          "ja.brofar@sti.edu.ph",
     experience:     "—",
@@ -280,6 +440,47 @@ const FACULTY = [
   const cardBackdrop = document.createElement('div');
   cardBackdrop.className = 'card-backdrop';
   document.body.appendChild(cardBackdrop);
+
+  const avatarZoomModal = document.createElement('div');
+  avatarZoomModal.className = 'avatar-zoom-modal';
+  avatarZoomModal.setAttribute('role', 'dialog');
+  avatarZoomModal.setAttribute('aria-modal', 'true');
+  avatarZoomModal.setAttribute('aria-label', 'Enlarged faculty photo');
+  avatarZoomModal.innerHTML = `
+    <button class="avatar-zoom-close" type="button" aria-label="Close photo preview">&times;</button>
+    <img class="avatar-zoom-image" src="" alt="" />
+  `;
+  document.body.appendChild(avatarZoomModal);
+
+  const avatarZoomImg = avatarZoomModal.querySelector('.avatar-zoom-image');
+  const avatarZoomCloseBtn = avatarZoomModal.querySelector('.avatar-zoom-close');
+
+  function openAvatarZoom(src, alt) {
+    if (!src) return;
+    avatarZoomImg.src = src;
+    avatarZoomImg.alt = alt || 'Faculty photo';
+    avatarZoomModal.classList.add('show');
+    document.body.classList.add('avatar-zoom-open');
+  }
+
+  function closeAvatarZoom() {
+    avatarZoomModal.classList.remove('show');
+    document.body.classList.remove('avatar-zoom-open');
+    avatarZoomImg.src = '';
+    avatarZoomImg.alt = '';
+  }
+
+  function handleAvatarZoomClick(e) {
+    const avatar = e.target.closest('.avatar-img');
+    if (!avatar) return;
+
+    const inFacultyCard = avatar.closest('.faculty-card') || avatar.closest('.fl-avatar');
+    if (!inFacultyCard) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+    openAvatarZoom(avatar.currentSrc || avatar.src, avatar.alt);
+  }
 
   function closeExpandedCard() {
     if (!expandedCard) return;
@@ -392,19 +593,31 @@ const FACULTY = [
           </div>
           <div class="fc-info">
             <div class="fc-info-row">
-              <span class="icon">🎓</span>
               <span>${f.degree}</span>
             </div>
             <div class="fc-info-row">
-              <span class="icon">📚</span>
-              <span>${f.subjects.slice(0, 2).join(', ')}${f.subjects.length > 2 ? '…' : ''}</span>
+              <div class="fc-subjects-wrap">
+                <span class="fc-subject-preview">${f.subjects.slice(0, 2).join(', ')}${f.subjects.length > 2 ? '…' : ''}</span>
+                <ul class="fc-subject-list">
+                  ${f.subjects.map(subject => `<li>${subject}</li>`).join('')}
+                </ul>
+              </div>
             </div>
             <div class="fc-info-row">
-              <span class="icon">🕒</span>
-              <span>${f.experience} experience</span>
+              ${f.teachingExperience && f.stiExperience ? `
+                <div class="fc-experience-columns">
+                  <div class="fc-experience-column">
+                    <strong>Years Teaching</strong>
+                    <span>${f.teachingExperience}</span>
+                  </div>
+                  <div class="fc-experience-column">
+                    <strong>Years at STI</strong>
+                    <span>${f.stiExperience}</span>
+                  </div>
+                </div>
+              ` : `<span>${f.experience}</span>`}
             </div>
             <div class="fc-info-row">
-              <span class="icon">✉️</span>
               <span style="font-size:.75rem;">${f.email}</span>
             </div>
           </div>
@@ -508,6 +721,8 @@ const FACULTY = [
     closeExpandedCard();
   });
 
+  document.addEventListener('click', handleAvatarZoomClick, true);
+
   gridEl.addEventListener('click', (e) => {
     const card = e.target.closest('.faculty-card');
     if (!card) return;
@@ -537,9 +752,18 @@ const FACULTY = [
   });
 
   cardBackdrop.addEventListener('click', closeExpandedCard);
+  avatarZoomCloseBtn.addEventListener('click', closeAvatarZoom);
+  avatarZoomModal.addEventListener('click', (e) => {
+    if (e.target === avatarZoomModal) closeAvatarZoom();
+  });
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeExpandedCard();
+    if (e.key !== 'Escape') return;
+    if (avatarZoomModal.classList.contains('show')) {
+      closeAvatarZoom();
+      return;
+    }
+    closeExpandedCard();
   });
 
   // Event listeners

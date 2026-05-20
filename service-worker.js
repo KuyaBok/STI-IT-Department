@@ -1,4 +1,4 @@
-const CACHE_NAME = "sti-calamba-v1";
+const CACHE_NAME = "sti-calamba-v8";
 
 const OFFLINE_ASSETS = [
   "./",
@@ -11,12 +11,7 @@ const OFFLINE_ASSETS = [
   "./script.js",
   "./manifest.json",
   "./Assets/Images/logo_sti.png",
-  "./Assets/Images/favicon.ico",
-  "./Assets/Images/icons/apple-touch-icon-180.png",
-  "./Assets/Images/icons/icon-192.png",
-  "./Assets/Images/icons/icon-512.png",
-  "./Assets/Images/icons/maskable-192.png",
-  "./Assets/Images/icons/maskable-512.png"
+  "./Assets/Images/favicon.ico"
 ];
 
 self.addEventListener("install", event => {
@@ -42,9 +37,44 @@ self.addEventListener("activate", event => {
 self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
 
+  const requestUrl = new URL(event.request.url);
+  const isSameOrigin = requestUrl.origin === self.location.origin;
+  const isDocument = event.request.mode === "navigate" || event.request.destination === "document";
+  const isCoreAsset = isSameOrigin && /\.(html|css|js)$/.test(requestUrl.pathname);
+
+  if (isDocument || isCoreAsset) {
+    event.respondWith(
+      fetch(event.request)
+        .then(networkResponse => {
+          const responseClone = networkResponse.clone();
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, responseClone);
+          });
+          return networkResponse;
+        })
+        .catch(() =>
+          caches.match(event.request).then(cachedResponse => {
+            if (cachedResponse) return cachedResponse;
+            return caches.match("./index.html");
+          })
+        )
+    );
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request).then(cachedResponse => {
-      if (cachedResponse) return cachedResponse;
+      if (cachedResponse) {
+        fetch(event.request)
+          .then(networkResponse => {
+            const responseClone = networkResponse.clone();
+            caches.open(CACHE_NAME).then(cache => {
+              cache.put(event.request, responseClone);
+            });
+          })
+          .catch(() => {});
+        return cachedResponse;
+      }
 
       return fetch(event.request)
         .then(networkResponse => {

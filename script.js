@@ -308,7 +308,7 @@ const FACULTY = [
     type:           "Full-Time",
     licensed:       true,
     subjects:       ["Programming", "Web Development"],
-    email:          "a.sadicon@sti.edu.ph",
+    email:          "arvin.sadicon@calamba.sti.edu.ph",
     experience:     "—",
     image:          "Assets/Images/Sir Arvin.jpg"
   },
@@ -321,16 +321,17 @@ const FACULTY = [
     type:           "Full-Time",
     licensed:       false,
     subjects:       [
-      "Java Related Subjects (OOP palang)",
+      "Java Related Subjects (Object Oriented Programming)",
       "Mobile Programming (Mobile App Programming 1 and 2, Mobile Technologies)",
-      "Database Programming (Copro6)",
-      "Information Assurance and Security (Cybersec, Data Privacy)",
-      "Professional issues in Information Technology",
+      "Database Programming (Computer Programming 6)",
+      "Information Assurance and Security (Cybersecurity, Data Privacy)",
+      "Professional Issues in Information Technology",
       "Application Development and Modern Technologies/Software Design",
       "Programming Languages"
     ],
     email:          "joiemar.coral@calamba.sti.edu.ph",
-    experience:     "—",
+    teachingExperience: "2 years",
+    stiExperience:       "2 years",
     image:          "Assets/Images/Sir Coral.png"
   },
   {
@@ -342,7 +343,7 @@ const FACULTY = [
     type:           "Full-Time",
     licensed:       false,
     subjects:       ["Networking", "Systems Administration"],
-    email:          "jp.daludado@sti.edu.ph",
+    email:          "jonphilip.daludado@calamba.sti.edu.ph",
     experience:     "—",
     image:          "Assets/Images/Sir Daludado.jpg"
   },
@@ -364,7 +365,7 @@ const FACULTY = [
       "Object Oriented Programming",
       "Technopreneurship"
     ],
-    email:          "d.belarmino@sti.edu.ph",
+    email:          "dexter.belarmino@calamba.sti.edu.ph",
     experience:     "—",
     image:          "Assets/Images/Sir Dexter.jpg"
   },
@@ -396,10 +397,26 @@ const FACULTY = [
     degree:         "B.S. Information Technology",
     type:           "Full-Time",
     licensed:       false,
-    subjects:       ["Computer Programming", "IT Fundamentals"],
-    email:          "e.palmones@sti.edu.ph",
-    experience:     "—",
-    image:          "Assets/Images/Sir Palmones.jpg"
+    subjects:       [
+      "Computer Programming 1",
+      "Object Oriented Programming",
+      "Integrative Programming",
+      "Computer Productivity Tools",
+      "Human Computer Interaction",
+      "Data Structure and Algorithm",
+      "Information Management",
+      "Advanced Database",
+      "Project Management",
+      "Web Systems and Technology",
+      "Advanced Web Design",
+      "Information System",
+      "Principles of Communication",
+      "Platform Technology"
+    ],
+    email:          "euencis.palmones@calamba.sti.edu.ph",
+    teachingExperience: "4 years",
+    stiExperience:    "4 years",
+    image:          "Assets/Images/Mr. Palmones.jpg"
   },
   {
     id:             7,
@@ -410,9 +427,48 @@ const FACULTY = [
     type:           "Part-Time",
     licensed:       false,
     subjects:       ["Information Technology", "Computer Applications"],
-    email:          "ja.brofar@sti.edu.ph",
+    email:          "joyceann.brofar@calamba.sti.edu.ph",
     experience:     "—",
     image:          "Assets/Images/Maam Joyce.jpg"
+  },
+  {
+    id:             8,
+    name:           "Ms. Kyla Cassandra Escriba",
+    position:       "Computer Engineering Instructor",
+    specialization: "Computer Engineering",
+    degree:         "B.S. Computer Engineering",
+    type:           "Full-Time",
+    licensed:       false,
+    subjects:       [""],
+    email:          "kylacassandra.escriba@calamba.sti.edu.ph",
+    experience:     "—",
+    image:          "Assets/Images/logo_sti.png"
+  },
+  {
+    id:             9,
+    name:           "Ms. Missy Ann Yamaro",
+    position:       "Computer Engineering Instructor",
+    specialization: "Computer Engineering",
+    degree:         "B.S. Computer Engineering",
+    type:           "Full-Time",
+    licensed:       false,
+    subjects:       [""],
+    email:          "missyann.yamaro@calamba.sti.edu.ph",
+    experience:     "—",
+    image:          "Assets/Images/logo_sti.png"
+  },
+  {
+    id:            10,
+    name:           "Mr. Francis Matthew Acedera",
+    position:       "Multimedia Arts Instructor",
+    specialization: "Multimedia Arts",
+    degree:         "B.S. Multimedia Arts",
+    type:           "Full-Time",
+    licensed:       false,
+    subjects:       [""],
+    email:          "francismatthew.acedera@calamba.sti.edu.ph",
+    experience:     "—",
+     image:          "Assets/Images/Sir Acedera.png"
   }
 ];
 

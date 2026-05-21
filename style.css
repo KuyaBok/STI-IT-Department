@@ -28,11 +28,18 @@
 html { scroll-behavior: smooth; font-size: 16px; }
 
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
   background: var(--off-white);
   color: var(--text-dark);
   line-height: 1.6;
   transition: background-color .36s ease, color .36s ease;
+}
+
+footer {
+  margin-top: auto;
 }
 
 .theme-scale-reveal {
@@ -538,7 +545,7 @@ section { padding: 5rem 2rem; }
 
 .programs-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.5rem;
   max-width: 1100px;
   margin-inline: auto;
@@ -877,7 +884,8 @@ footer {
 
 /* Faculty grid/list container */
 .faculty-section {
-  max-width: 1300px;
+  max-width: min(1400px, 94vw);
+  width: 100%;
   margin-inline: auto;
   padding: .75rem 2rem 3rem;
 }
@@ -885,8 +893,12 @@ footer {
 /* ---- Card Grid View ---- */
 .faculty-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+.faculty-grid > .faculty-card:only-child {
+  max-width: 760px;
+  justify-self: center;
 }
 .faculty-grid.hidden, .faculty-list-view.hidden { display: none; }
 
@@ -972,7 +984,7 @@ body.avatar-zoom-open { overflow: hidden; }
   position: fixed;
   top: 50%;
   left: 50%;
-  width: min(94vw, 720px);
+  width: min(90vw, 600px);
   max-height: 92vh;
   overflow: auto;
   z-index: 1300;

@@ -465,10 +465,20 @@ const FACULTY = [
     degree:         "B.S. Multimedia Arts",
     type:           "Full-Time",
     licensed:       false,
-    subjects:       [""],
-    email:          "francismatthew.acedera@calamba.sti.edu.ph",
-    experience:     "—",
-     image:          "Assets/Images/Sir Acedera.png"
+    subjects:       [
+      "3D Animation",
+      "Advertising Creatives",
+      "Drawing 2",
+      "Fundamentals in Film and Video Production",
+      "History of Graphic Design",
+      "Portfolio Preparation and Exhibit Design",
+      "Post-Production Techniques",
+      "Writing for New Media"
+    ],
+    email:             "francismatthew.acedera@calamba.sti.edu.ph",
+    teachingExperience: "1 year",
+    stiExperience:      "1 year",
+    image:              "Assets/Images/Sir Acedera.png"
   }
 ];
 

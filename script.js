@@ -734,28 +734,75 @@ const FACULTY = [
     render();
   }
 
-  // View toggle
+  // View toggle with animation and preference persistence
   let isGridView = true;
+  const viewStorageKey = 'faculty-view';
+
+  // Utility: animate switching from one element to another
+  function animateSwitch(fromEl, toEl, duration = 300) {
+    // Ensure target is visible and starts hidden (opacity 0)
+    toEl.classList.remove('hidden');
+    toEl.style.display = '';
+    toEl.classList.add('view-transition', 'fade-out');
+
+    // Force reflow so transition can start
+    void toEl.offsetWidth;
+
+    // Start transitions
+    fromEl.classList.add('view-transition', 'fade-out');
+    toEl.classList.remove('fade-out');
+    toEl.classList.add('fade-in');
+
+    // After animation, cleanup and hide source
+    setTimeout(() => {
+      fromEl.classList.add('hidden');
+      fromEl.style.display = 'none';
+      fromEl.classList.remove('view-transition', 'fade-out');
+      toEl.classList.remove('view-transition', 'fade-in');
+    }, duration);
+  }
+
+  // Restore saved view preference (if any)
+  try {
+    const saved = localStorage.getItem(viewStorageKey);
+    if (saved === 'list') {
+      isGridView = false;
+      btnList.classList.add('active');
+      btnGrid.classList.remove('active');
+      gridEl.classList.add('hidden');
+      gridEl.style.display = 'none';
+      listEl.classList.remove('hidden');
+      listEl.style.display = '';
+    } else {
+      isGridView = true;
+      btnGrid.classList.add('active');
+      btnList.classList.remove('active');
+      gridEl.classList.remove('hidden');
+      gridEl.style.display = '';
+      listEl.classList.add('hidden');
+      listEl.style.display = 'none';
+    }
+  } catch (e) {
+    // ignore storage errors
+  }
 
   btnGrid.addEventListener('click', () => {
+    if (isGridView) return;
     isGridView = true;
     btnGrid.classList.add('active');
     btnList.classList.remove('active');
-    gridEl.classList.remove('hidden');
-    listEl.classList.add('hidden');
-    gridEl.style.display = '';
-    listEl.style.display = 'none';
+    animateSwitch(listEl, gridEl);
+    try { localStorage.setItem(viewStorageKey, 'grid'); } catch (_) {}
   });
 
   btnList.addEventListener('click', () => {
+    if (!isGridView) return;
     isGridView = false;
     btnList.classList.add('active');
     btnGrid.classList.remove('active');
-    listEl.classList.remove('hidden');
-    gridEl.classList.add('hidden');
-    listEl.style.display = '';
-    gridEl.style.display = 'none';
+    animateSwitch(gridEl, listEl);
     closeExpandedCard();
+    try { localStorage.setItem(viewStorageKey, 'list'); } catch (_) {}
   });
 
   document.addEventListener('click', handleAvatarZoomClick, true);

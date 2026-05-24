@@ -882,6 +882,11 @@ footer {
 .view-btn.active,
 .view-btn:hover { background: var(--sti-blue); border-color: var(--sti-blue); color: var(--white); }
 
+/* View switch animation helpers */
+.view-transition { transition: opacity .28s ease, transform .28s ease; will-change: opacity, transform; }
+.fade-in { opacity: 1 !important; transform: translateY(0) !important; }
+.fade-out { opacity: 0 !important; transform: translateY(6px) !important; }
+
 /* Faculty grid/list container */
 .faculty-section {
   max-width: min(1400px, 94vw);
@@ -893,8 +898,13 @@ footer {
 /* ---- Card Grid View ---- */
 .faculty-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 2rem;
+  align-items: start;
+  justify-items: stretch;
+  width: 100%;
+  max-width: 1300px;
+  margin-inline: auto;
 }
 .faculty-grid > .faculty-card:only-child {
   max-width: 760px;
@@ -1504,4 +1514,32 @@ body[data-theme='dark'] footer {
   .faculty-avatar { width: 76px; height: 76px; font-size: 1.5rem; }
   .faculty-card.expanded { width: 95vw; max-height: 90vh; }
   .faculty-card.expanded .faculty-avatar { width: 98px; height: 98px; font-size: 1.8rem; }
+}
+
+/* Make list/table view responsive on small screens: convert to stacked rows */
+@media (max-width: 700px) {
+  .faculty-list-view { width: 100%; }
+  .faculty-list-view .fl-table { display: block; overflow: visible; }
+  .fl-table thead { display: none; }
+  .fl-table tbody { display: flex; flex-direction: column; gap: .6rem; }
+  .fl-table tbody tr {
+    display: block;
+    background: var(--white);
+    border-radius: 12px;
+    padding: .75rem 1rem;
+    margin: 0;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 10px rgba(0,0,0,.04);
+  }
+  .fl-table td {
+    display: flex;
+    justify-content: space-between;
+    padding: .35rem 0;
+    font-size: .88rem;
+  }
+  .fl-table td:first-child { padding-left: 0; }
+  .fl-name-cell { gap: .6rem; }
+  .fl-avatar { width: 44px; height: 44px; }
+  .fl-table td > div { width: 70%; }
+  .fl-table td .badge { white-space: normal; }
 }

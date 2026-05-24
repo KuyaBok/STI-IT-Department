@@ -432,32 +432,6 @@ const FACULTY = [
     image:          "Assets/Images/Maam Joyce.jpg"
   },
   {
-    id:             8,
-    name:           "Ms. Kyla Cassandra Escriba",
-    position:       "Computer Engineering Instructor",
-    specialization: "Computer Engineering",
-    degree:         "B.S. Computer Engineering",
-    type:           "Full-Time",
-    licensed:       false,
-    subjects:       [""],
-    email:          "kylacassandra.escriba@calamba.sti.edu.ph",
-    experience:     "—",
-    image:          "Assets/Images/logo_sti.png"
-  },
-  {
-    id:             9,
-    name:           "Ms. Missy Ann Yamaro",
-    position:       "Computer Engineering Instructor",
-    specialization: "Computer Engineering",
-    degree:         "B.S. Computer Engineering",
-    type:           "Full-Time",
-    licensed:       false,
-    subjects:       [""],
-    email:          "missyann.yamaro@calamba.sti.edu.ph",
-    experience:     "—",
-    image:          "Assets/Images/logo_sti.png"
-  },
-  {
     id:            10,
     name:           "Mr. Francis Matthew Acedera",
     position:       "Multimedia Arts Instructor",
@@ -593,9 +567,6 @@ const FACULTY = [
     document.getElementById('totalFaculty').textContent   = FACULTY.length;
     document.getElementById('fullTimeFaculty').textContent = FACULTY.filter(f => f.type === 'Full-Time').length;
     document.getElementById('partTimeFaculty').textContent = FACULTY.filter(f => f.type === 'Part-Time').length;
-    document.getElementById('mastersFaculty').textContent  = FACULTY.filter(f =>
-      f.degree.startsWith('M.S') || f.degree.startsWith('Ph.D')
-    ).length;
     document.getElementById('licensedFaculty').textContent = FACULTY.filter(f => f.licensed).length;
   }
 

@@ -307,9 +307,10 @@ const FACULTY = [
     degree:         "B.S. Information Technology",
     type:           "Full-Time",
     licensed:       true,
-    subjects:       ["Programming", "Web Development"],
+    subjects:       ["Computer Programming 3, 4, 5, 6", "Empowerment Technology", "Management Information System", "Java Programming", "Database"],
     email:          "arvin.sadicon@calamba.sti.edu.ph",
-    experience:     "—",
+    teachingExperience: "7 years",
+    stiExperience:       "4 years",
     image:          "Assets/Images/Sir Arvin.jpg"
   },
   {

@@ -333,7 +333,7 @@ const FACULTY = [
     email:          "joiemar.coral@calamba.sti.edu.ph",
     teachingExperience: "2 years",
     stiExperience:       "2 years",
-    image:          "Assets/Images/Sir Coral.png"
+    image:          "Assets/Images/CORAL.jpg"
   },
   {
     id:             3,
@@ -368,7 +368,7 @@ const FACULTY = [
     ],
     email:          "dexter.belarmino@calamba.sti.edu.ph",
     experience:     "—",
-    image:          "Assets/Images/Sir Dexter.jpg"
+    image:          "Assets/Images/BELARMINO.jpg"
   },
   {
     id:             5,
@@ -388,7 +388,7 @@ const FACULTY = [
     email:          "danyca.villanueva@calamba.sti.edu.ph",
     teachingExperience: "9 months",
     stiExperience:      "9 months",
-    image:          "Assets/Images/Maam Villanueva.jpg"
+    image:          "Assets/Images/VILLANUEVA.jpg"
   },
   {
     id:             6,
@@ -417,7 +417,7 @@ const FACULTY = [
     email:          "euencis.palmones@calamba.sti.edu.ph",
     teachingExperience: "4 years",
     stiExperience:    "4 years",
-    image:          "Assets/Images/Mr. Palmones.jpg"
+    image:          "Assets/Images/PALMONES.jpg"
   },
   {
     id:             7,
@@ -430,7 +430,7 @@ const FACULTY = [
     subjects:       ["Information Technology", "Computer Applications"],
     email:          "joyceann.brofar@calamba.sti.edu.ph",
     experience:     "—",
-    image:          "Assets/Images/Maam Joyce.jpg"
+    image:          "Assets/Images/BROFAR.jpg"
   },
   {
     id:            10,

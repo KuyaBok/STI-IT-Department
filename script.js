@@ -343,9 +343,21 @@ const FACULTY = [
     degree:         "B.S. Information Technology",
     type:           "Full-Time",
     licensed:       false,
-    subjects:       ["Networking", "Systems Administration"],
+    subjects:       ["Advanced Web Design",
+      "Computer Architecture and Organization",
+      "Game Development",
+      "Fundamentals of Web Programming",
+      "Human-Computer Interaction",
+      "Introduction to Computing",
+      "IT Service Management",
+      "Principles of Communication",
+      "Computer Productivity Tools",
+      "Project Management",
+      "Software Engineering 1",
+      "Software Quality Assurance"],
     email:          "jonphilip.daludado@calamba.sti.edu.ph",
-    experience:     "—",
+    teachingExperience: "3 Years",
+    stiExperience:      "3 Years",
     image:          "Assets/Images/Sir Daludado.jpg"
   },
   {
@@ -367,7 +379,8 @@ const FACULTY = [
       "Technopreneurship"
     ],
     email:          "dexter.belarmino@calamba.sti.edu.ph",
-    experience:     "—",
+    teachingExperience: "9 months",
+    stiExperience:      "9 months",
     image:          "Assets/Images/BELARMINO.jpg"
   },
   {
@@ -427,9 +440,11 @@ const FACULTY = [
     degree:         "B.S. Information Technology",
     type:           "Part-Time",
     licensed:       false,
-    subjects:       ["Information Technology", "Computer Applications"],
+    subjects:       ["Programming Languanges", 
+      "Computer Productivity Tools (CPTools)"],
     email:          "joyceann.brofar@calamba.sti.edu.ph",
-    experience:     "—",
+    teachingExperience: "13 years",
+    stiExperience:    "3 years",
     image:          "Assets/Images/BROFAR.jpg"
   },
   {
@@ -472,7 +487,7 @@ const FACULTY = [
   const countEl   = document.getElementById('resultCount');
   const searchEl  = document.getElementById('searchInput');
   const typeEl    = document.getElementById('filterType');
-  const specEl    = document.getElementById('filterSpecialization');
+  const courseEl  = document.getElementById('filterCourse');
   const btnGrid   = document.getElementById('btnGrid');
   const btnList   = document.getElementById('btnList');
 
@@ -571,6 +586,34 @@ const FACULTY = [
     document.getElementById('licensedFaculty').textContent = FACULTY.filter(f => f.licensed).length;
   }
 
+  function escapeHtmlAttr(value) {
+    return String(value)
+      .replace(/&/g, '&amp;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
+  function getUniqueCourses() {
+    return [...new Set(FACULTY.flatMap(f => f.subjects))]
+      .filter(Boolean)
+      .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
+  }
+
+  function populateCourseFilter() {
+    if (!courseEl) return;
+    const uniqueCourses = getUniqueCourses();
+    courseEl.innerHTML = '<option value="all">All Courses</option>' +
+      uniqueCourses.map(course => `\n        <option value="${escapeHtmlAttr(course)}">${course}</option>`).join('');
+  }
+
+  function setCourseFilter(course) {
+    if (!courseEl) return;
+    courseEl.value = course || 'all';
+    applyFilters();
+  }
+
   // Get initials from name
   function getInitials(name) {
     return name.split(' ')
@@ -635,9 +678,14 @@ const FACULTY = [
             </div>
             <div class="fc-info-row">
               <div class="fc-subjects-wrap">
-                <span class="fc-subject-preview">${f.subjects.slice(0, 2).join(', ')}${f.subjects.length > 2 ? '…' : ''}</span>
+                <div class="fc-subject-preview">
+                  ${f.subjects.slice(0, 2).map(subject => `
+                    <button type="button" class="subject-filter-btn" data-subject="${escapeHtmlAttr(subject)}" title="Filter by ${subject}">${subject}</button>
+                  `).join('')}
+                  ${f.subjects.length > 2 ? '<span class="subject-more">…</span>' : ''}
+                </div>
                 <ul class="fc-subject-list">
-                  ${f.subjects.map(subject => `<li>${subject}</li>`).join('')}
+                  ${f.subjects.map(subject => `<li><button type="button" class="subject-filter-btn" data-subject="${escapeHtmlAttr(subject)}" title="Filter by ${escapeHtmlAttr(subject)}">${subject}</button></li>`).join('')}
                 </ul>
               </div>
             </div>
@@ -713,9 +761,9 @@ const FACULTY = [
 
   // Filter logic
   function applyFilters() {
-    const q    = searchEl.value.trim().toLowerCase();
-    const type = typeEl.value;
-    const spec = specEl.value;
+    const q      = searchEl.value.trim().toLowerCase();
+    const type   = typeEl.value;
+    const course = courseEl ? courseEl.value : 'all';
 
     filtered = FACULTY.filter(f => {
       const matchSearch = !q ||
@@ -726,10 +774,10 @@ const FACULTY = [
         f.subjects.some(s => s.toLowerCase().includes(q)) ||
         f.email.toLowerCase().includes(q);
 
-      const matchType = type === 'all' || f.type === type;
-      const matchSpec = spec === 'all' || f.specialization === spec;
+      const matchType   = type === 'all' || f.type === type;
+      const matchCourse = course === 'all' || f.subjects.some(s => s === course);
 
-      return matchSearch && matchType && matchSpec;
+      return matchSearch && matchType && matchCourse;
     });
 
     render();
@@ -809,6 +857,13 @@ const FACULTY = [
   document.addEventListener('click', handleAvatarZoomClick, true);
 
   gridEl.addEventListener('click', (e) => {
+    const subjectButton = e.target.closest('.subject-filter-btn');
+    if (subjectButton) {
+      e.stopPropagation();
+      setCourseFilter(subjectButton.dataset.subject);
+      return;
+    }
+
     const card = e.target.closest('.faculty-card');
     if (!card) return;
     openExpandedCard(card);
@@ -854,9 +909,23 @@ const FACULTY = [
   // Event listeners
   searchEl.addEventListener('input', applyFilters);
   typeEl.addEventListener('change',  applyFilters);
-  specEl.addEventListener('change',  applyFilters);
+  if (courseEl) {
+    courseEl.addEventListener('change', applyFilters);
+  }
 
-  // Init
+  // Reset button handler
+  const btnReset = document.getElementById('btnReset');
+  if (btnReset) {
+    btnReset.addEventListener('click', () => {
+      searchEl.value = '';
+      typeEl.value = 'all';
+      courseEl.value = 'all';
+      applyFilters();
+    });
+  }
+
+  // Init course filters and render
+  populateCourseFilter();
   updateSummaryCards();
   render();
 })();

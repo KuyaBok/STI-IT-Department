@@ -1,8 +1,5 @@
-/* =============================================================
-   STI College Calamba — IT Faculty Dashboard Script
-   ============================================================= */
 
-// ── Facility Lightbox ──────────────────────────────────────────
+
 (function initLightbox() {
   const lightbox  = document.getElementById('lightbox');
   const lbImg     = document.getElementById('lightboxImg');
@@ -65,7 +62,6 @@
   });
 })();
 
-
 (function initNavToggle() {
   const toggle = document.getElementById('navToggle');
   const links  = document.getElementById('navLinks');
@@ -76,7 +72,6 @@
   toggle.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') open(); });
 })();
 
-// Theme toggle: light mode matches the earlier design, dark mode uses premium theme.
 (function initThemeToggle() {
   const storageKey = 'sti-theme';
   const body = document.body;
@@ -115,8 +110,8 @@
   const playReveal = (nextTheme) => {
     ensureRevealLayer();
     revealLayer.classList.remove('is-animating');
-      revealLayer.style.setProperty('--reveal-bg', nextTheme === 'dark' ? '#070b12' : '#f9fafb'); // Set overlay background to target theme color
-    // Force reflow so rapid repeated clicks restart the reveal animation.
+      revealLayer.style.setProperty('--reveal-bg', nextTheme === 'dark' ? '#070b12' : '#f9fafb'); 
+    
     void revealLayer.offsetWidth;
     revealLayer.classList.add('is-animating');
 
@@ -204,7 +199,6 @@
   });
 })();
 
-// Keep footer copyright year current across all pages.
 (function initFooterYear() {
   const year = String(new Date().getFullYear());
   document.querySelectorAll('.footer-copy').forEach(el => {
@@ -212,7 +206,6 @@
   });
 })();
 
-// ── Hero counter animation (landing page) ─────────────────────
 (function initCounters() {
   const counters = document.querySelectorAll('[data-target]');
   if (!counters.length) return;
@@ -243,7 +236,6 @@
   counters.forEach(c => observer.observe(c));
 })();
 
-// Register a service worker so the site can be installed as a PWA.
 (function registerServiceWorker() {
   const supportsSW = "serviceWorker" in navigator;
   const isHttp = location.protocol === "http:" || location.protocol === "https:";
@@ -252,12 +244,11 @@
 
   window.addEventListener("load", () => {
     navigator.serviceWorker.register("service-worker.js").catch(() => {
-      // Keep silent for production users; installability just won't be available.
+      
     });
   });
 })();
 
-// Show an install button only when the browser supports install prompting.
 (function initInstallPrompt() {
   const inStandaloneMode =
     window.matchMedia("(display-mode: standalone)").matches ||
@@ -295,9 +286,6 @@
   });
 })();
 
-// ── Faculty Data ───────────────────────────────────────────────
-// Faculty photos are loaded from Assets/Images.
-// Use exact filenames (including spaces and extension) for each instructor image.
 const FACULTY = [
   {
     id:             1,
@@ -472,14 +460,13 @@ const FACULTY = [
   }
 ];
 
-// ── Dashboard Initialization ───────────────────────────────────
 (function initDashboard() {
-  // Only run on the dashboard page
+  
   if (!document.getElementById('facultyGrid')) return;
 
   let filtered = [...FACULTY];
 
-  // DOM refs
+  
   const gridEl    = document.getElementById('facultyGrid');
   const tableBody = document.getElementById('facultyTableBody');
   const listEl    = document.getElementById('facultyListView');
@@ -575,7 +562,7 @@ const FACULTY = [
     openExpandedCard(detachedCard, true);
   }
 
-  // Update summary cards
+  
   function updateSummaryCards() {
     const set = document.getElementById('totalFaculty');
     if (!set) return;
@@ -614,7 +601,7 @@ const FACULTY = [
     applyFilters();
   }
 
-  // Get initials from name
+  
   function getInitials(name) {
     return name.split(' ')
       .filter(w => w.length > 1 && !/^(Mr\.|Ms\.|Mrs\.|Dr\.|Prof\.|Engr\.)$/.test(w))
@@ -623,21 +610,21 @@ const FACULTY = [
       .join('');
   }
 
-  // Build degree badge class
+  
   function degreeClass(degree) {
     if (degree.startsWith('Ph.D')) return 'badge-purple';
     if (degree.startsWith('M.S'))  return 'badge-blue';
     return 'badge-green';
   }
 
-  // Build type badge
+  
   function typeBadge(type) {
     return type === 'Full-Time'
       ? '<span class="badge badge-green">Full-Time</span>'
       : '<span class="badge badge-gold">Part-Time</span>';
   }
 
-  // Build specialization tag class
+  
   function specClass(spec) {
     const map = {
       'Software Development': '',
@@ -652,7 +639,7 @@ const FACULTY = [
     return map[spec] || '';
   }
 
-  // Render grid cards
+  
   function renderGrid(data) {
     gridEl.innerHTML = data.map((f, i) => `
       <article class="faculty-card" data-faculty-id="${f.id}" style="animation-delay:${i * 0.04}s" tabindex="0" aria-label="${f.name}" aria-expanded="false">
@@ -712,7 +699,7 @@ const FACULTY = [
     `).join('');
   }
 
-  // Render list/table rows
+  
   function renderList(data) {
     tableBody.innerHTML = data.map((f, i) => `
       <tr data-faculty-id="${f.id}" style="animation-delay:${i * 0.03}s" tabindex="0" aria-label="Open enlarged card for ${f.name}">
@@ -746,7 +733,7 @@ const FACULTY = [
     `).join('');
   }
 
-  // Render both views + update count
+  
   function render() {
     closeExpandedCard();
     renderGrid(filtered);
@@ -759,7 +746,7 @@ const FACULTY = [
     countEl.textContent     = `${filtered.length} of ${FACULTY.length} faculty`;
   }
 
-  // Filter logic
+  
   function applyFilters() {
     const q      = searchEl.value.trim().toLowerCase();
     const type   = typeEl.value;
@@ -783,26 +770,26 @@ const FACULTY = [
     render();
   }
 
-  // View toggle with animation and preference persistence
+  
   let isGridView = true;
   const viewStorageKey = 'faculty-view';
 
-  // Utility: animate switching from one element to another
+  
   function animateSwitch(fromEl, toEl, duration = 300) {
-    // Ensure target is visible and starts hidden (opacity 0)
+    
     toEl.classList.remove('hidden');
     toEl.style.display = '';
     toEl.classList.add('view-transition', 'fade-out');
 
-    // Force reflow so transition can start
+    
     void toEl.offsetWidth;
 
-    // Start transitions
+    
     fromEl.classList.add('view-transition', 'fade-out');
     toEl.classList.remove('fade-out');
     toEl.classList.add('fade-in');
 
-    // After animation, cleanup and hide source
+    
     setTimeout(() => {
       fromEl.classList.add('hidden');
       fromEl.style.display = 'none';
@@ -811,7 +798,7 @@ const FACULTY = [
     }, duration);
   }
 
-  // Restore saved view preference (if any)
+  
   try {
     const saved = localStorage.getItem(viewStorageKey);
     if (saved === 'list') {
@@ -832,7 +819,7 @@ const FACULTY = [
       listEl.style.display = 'none';
     }
   } catch (e) {
-    // ignore storage errors
+    
   }
 
   btnGrid.addEventListener('click', () => {
@@ -906,14 +893,14 @@ const FACULTY = [
     closeExpandedCard();
   });
 
-  // Event listeners
+  
   searchEl.addEventListener('input', applyFilters);
   typeEl.addEventListener('change',  applyFilters);
   if (courseEl) {
     courseEl.addEventListener('change', applyFilters);
   }
 
-  // Reset button handler
+  
   const btnReset = document.getElementById('btnReset');
   if (btnReset) {
     btnReset.addEventListener('click', () => {
@@ -924,8 +911,61 @@ const FACULTY = [
     });
   }
 
-  // Init course filters and render
+  
   populateCourseFilter();
   updateSummaryCards();
   render();
+})();
+
+(function initTeamImageZoom() {
+  const existing = document.getElementById('teamImageZoomModal');
+  if (existing) return;
+
+  const zoomModal = document.createElement('div');
+  zoomModal.id = 'teamImageZoomModal';
+  zoomModal.className = 'avatar-zoom-modal';
+  zoomModal.setAttribute('role', 'dialog');
+  zoomModal.setAttribute('aria-modal', 'true');
+  zoomModal.setAttribute('aria-label', 'Enlarged team photo');
+  zoomModal.innerHTML = `
+    <button class="avatar-zoom-close" type="button" aria-label="Close photo preview">&times;</button>
+    <img class="avatar-zoom-image" src="" alt="" />
+  `;
+  document.body.appendChild(zoomModal);
+
+  const zoomImg = zoomModal.querySelector('.avatar-zoom-image');
+  const zoomCloseBtn = zoomModal.querySelector('.avatar-zoom-close');
+
+  function openZoom(src, alt) {
+    if (!src) return;
+    zoomImg.src = src;
+    zoomImg.alt = alt || 'Team photo';
+    zoomModal.classList.add('show');
+    document.body.classList.add('avatar-zoom-open');
+  }
+
+  function closeZoom() {
+    zoomModal.classList.remove('show');
+    document.body.classList.remove('avatar-zoom-open');
+    zoomImg.src = '';
+    zoomImg.alt = '';
+  }
+
+  document.addEventListener('click', (event) => {
+    const image = event.target.closest('.team-avatar img');
+    if (!image) return;
+    event.preventDefault();
+    event.stopPropagation();
+    openZoom(image.currentSrc || image.src, image.alt);
+  }, true);
+
+  zoomCloseBtn.addEventListener('click', closeZoom);
+  zoomModal.addEventListener('click', (event) => {
+    if (event.target === zoomModal) closeZoom();
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && zoomModal.classList.contains('show')) {
+      closeZoom();
+    }
+  });
 })();

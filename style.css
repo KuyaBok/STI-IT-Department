@@ -1,10 +1,7 @@
-/* ============================================================
-   STI COLLEGE CALAMBA — Shared Stylesheet
-   ============================================================ */
+
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@600;700;800&display=swap');
 
-/* ---------- CSS Variables ---------- */
 :root {
   --sti-blue:     #003087;
   --sti-blue-mid: #0050c8;
@@ -22,7 +19,6 @@
   --transition:   .25s ease;
 }
 
-/* ---------- Reset & Base ---------- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { scroll-behavior: smooth; font-size: 16px; }
@@ -52,7 +48,6 @@ footer {
   background: var(--reveal-bg, #f9fafb);
   will-change: opacity, transform;
 }
-
 
   animation: themeScaleCrossfade 2s cubic-bezier(0.215, 0.61, 0.355, 1) both;
 }
@@ -86,14 +81,10 @@ img { display: block; max-width: 100%; }
 
 ul { list-style: none; }
 
-/* ---------- Scrollbar ---------- */
 ::-webkit-scrollbar { width: 7px; }
 ::-webkit-scrollbar-track { background: var(--off-white); }
 ::-webkit-scrollbar-thumb { background: var(--sti-blue-mid); border-radius: 4px; }
 
-/* ============================================================
-   NAVBAR
-   ============================================================ */
 .navbar {
   position: sticky;
   top: 0;
@@ -236,13 +227,9 @@ body[data-theme='dark'] .theme-toggle-btn:active .theme-flip-card {
   }
 }
 
-/* Hamburger (mobile) */
 .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: .4rem; }
 .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: transform var(--transition), opacity var(--transition); }
 
-/* ============================================================
-   HERO SECTION
-   ============================================================ */
 .hero {
   position: relative;
   min-height: 92vh;
@@ -387,9 +374,6 @@ body[data-theme='dark'] .theme-toggle-btn:active .theme-flip-card {
 .stat-number { font-size: 2rem; font-weight: 900; color: var(--sti-gold); display: block; }
 .stat-label  { font-size: .78rem; color: rgba(255,255,255,.6); text-transform: uppercase; letter-spacing: .06em; }
 
-/* ============================================================
-   SECTIONS SHARED
-   ============================================================ */
 section { padding: 5rem 2rem; }
 
 .section-header { text-align: center; margin-bottom: 3.5rem; }
@@ -408,9 +392,6 @@ section { padding: 5rem 2rem; }
 .section-title { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; color: var(--text-dark); }
 .section-desc { color: var(--text-muted); margin-top: .5rem; max-width: 520px; margin-inline: auto; }
 
-/* ============================================================
-   ABOUT SECTION (landing)
-   ============================================================ */
 .about-section { background: var(--white); }
 
 .about-grid {
@@ -465,9 +446,6 @@ section { padding: 5rem 2rem; }
   color: var(--text-dark);
 }
 
-/* ============================================================
-   PAGE HEADER (Programs & Facilities pages)
-   ============================================================ */
 .page-header {
   background: linear-gradient(135deg, var(--sti-blue) 0%, #001a5c 60%, #000d33 100%);
   color: var(--white);
@@ -522,7 +500,6 @@ section { padding: 5rem 2rem; }
   margin: 0 auto;
 }
 
-/* about.html uses h1 directly in .page-header */
 .page-header h1 {
   font-family: 'Space Grotesk', 'Inter', sans-serif;
   font-size: clamp(1.3rem, 3vw, 2.1rem);
@@ -538,9 +515,6 @@ section { padding: 5rem 2rem; }
   margin: 0 auto;
 }
 
-/* ============================================================
-   PROGRAMS SECTION
-   ============================================================ */
 .programs-section { background: var(--off-white); }
 
 .programs-grid {
@@ -576,9 +550,6 @@ section { padding: 5rem 2rem; }
 }
 .program-badge.featured { background: rgba(245,168,0,.15); color: #a06a00; }
 
-/* ============================================================
-   FACILITIES SECTION (landing)
-   ============================================================ */
 .facilities-section { background: var(--white); }
 
 .facilities-grid {
@@ -646,7 +617,6 @@ section { padding: 5rem 2rem; }
   line-height: 1.45;
 }
 
-/* Responsive: 2 columns on tablet, 1 on mobile */
 @media (max-width: 1024px) {
   .facilities-grid { grid-template-columns: repeat(2, 1fr); }
 }
@@ -654,9 +624,6 @@ section { padding: 5rem 2rem; }
   .facilities-grid { grid-template-columns: 1fr; }
 }
 
-/* ============================================================
-   CTA BANNER (landing)
-   ============================================================ */
 .cta-banner {
   background: linear-gradient(135deg, var(--sti-blue) 0%, #001a5c 100%);
   color: var(--white);
@@ -666,9 +633,6 @@ section { padding: 5rem 2rem; }
 .cta-banner h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; margin-bottom: .75rem; }
 .cta-banner p  { color: rgba(255,255,255,.7); margin-bottom: 2rem; }
 
-/* ============================================================
-   FOOTER
-   ============================================================ */
 footer {
   background: #0a0f1e;
   color: rgba(255,255,255,.7);
@@ -689,9 +653,6 @@ footer {
 .footer-links a:hover { color: var(--sti-gold); }
 .footer-copy { font-size: .78rem; color: rgba(255,255,255,.4); margin-top: .5rem; }
 
-/* ============================================================
-   LIGHTBOX
-   ============================================================ */
 .lightbox {
   display: none;
   position: fixed;
@@ -773,14 +734,8 @@ footer {
 .lightbox-prev { left: 1.5rem; }
 .lightbox-next { right: 1.5rem; }
 
-/* Make facility images show pointer cursor */
 .facility-img-wrap { cursor: zoom-in; }
 
-/* ============================================================
-   DASHBOARD PAGE
-   ============================================================ */
-
-/* Top bar */
 .db-topbar {
   background: var(--white);
   border-bottom: 1px solid var(--border);
@@ -794,7 +749,6 @@ footer {
 .db-topbar h1 { font-size: 1.3rem; font-weight: 800; color: var(--text-dark); }
 .db-topbar p  { font-size: .82rem; color: var(--text-muted); }
 
-/* Summary cards */
 .db-summary {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
@@ -820,7 +774,6 @@ footer {
 .summary-info strong { display: block; font-size: 1.5rem; font-weight: 900; color: var(--text-dark); }
 .summary-info span   { font-size: .78rem; color: var(--text-muted); }
 
-/* Faculty toolbar */
 .faculty-toolbar {
   display: flex;
   align-items: center;
@@ -903,12 +856,10 @@ footer {
 .view-btn.active,
 .view-btn:hover { background: var(--sti-blue); border-color: var(--sti-blue); color: var(--white); }
 
-/* View switch animation helpers */
 .view-transition { transition: opacity .28s ease, transform .28s ease; will-change: opacity, transform; }
 .fade-in { opacity: 1 !important; transform: translateY(0) !important; }
 .fade-out { opacity: 0 !important; transform: translateY(6px) !important; }
 
-/* Faculty grid/list container */
 .faculty-section {
   max-width: min(1400px, 94vw);
   width: 100%;
@@ -916,7 +867,6 @@ footer {
   padding: .75rem 2rem 3rem;
 }
 
-/* ---- Card Grid View ---- */
 .faculty-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -1233,7 +1183,6 @@ body.avatar-zoom-open { overflow: hidden; }
   text-align: center;
 }
 
-/* ---- List View ---- */
 .faculty-list-view { width: 100%; }
 
 .fl-table {
@@ -1311,7 +1260,6 @@ body.avatar-zoom-open { overflow: hidden; }
 .badge-green  { background: rgba(22,163,74,.12); color: #15803d; }
 .badge-purple { background: rgba(109,40,217,.12); color: #5b21b6; }
 
-/* No results */
 .no-results {
   text-align: center;
   padding: 3rem 1rem;
@@ -1319,9 +1267,6 @@ body.avatar-zoom-open { overflow: hidden; }
   display: none;
 }
 
-/* ============================================================
-   ANIMATIONS
-   ============================================================ */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(18px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -1330,7 +1275,6 @@ body.avatar-zoom-open { overflow: hidden; }
 .hero-content { animation: fadeUp .7s ease both; }
 .hero-stats   { animation: fadeUp .9s ease .2s both; }
 
-/* PWA install button (shown only when install prompt is available) */
 .install-app-btn {
   position: fixed;
   right: 1rem;
@@ -1363,9 +1307,6 @@ body.avatar-zoom-open { overflow: hidden; }
   box-shadow: 0 12px 28px rgba(0, 0, 0, .24);
 }
 
-/* ============================================================
-   PREMIUM DARK THEME OVERRIDES
-   ============================================================ */
 body[data-theme='dark'] {
   --off-white: #020b1e;
   --text-dark: #ffffff;
@@ -1430,7 +1371,6 @@ body[data-theme='dark'] .faculty-toolbar {
   background: transparent;
 }
 
-/* Override inline section backgrounds in html (style="background: var(--off-white)") */
 body[data-theme='dark'] .programs-section,
 body[data-theme='dark'] .facilities-section,
 body[data-theme='dark'] .about-section,
@@ -1503,6 +1443,110 @@ body[data-theme='dark'] .fc-tag {
   color: #00e5ff;
 }
 
+.team-section {
+  background: var(--off-white);
+  color: var(--text-dark);
+}
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.5rem;
+  max-width: 1400px;
+  margin-inline: auto;
+  align-items: stretch;
+}
+.team-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  min-height: 280px;
+  box-shadow: var(--card-shadow);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.team-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 35px rgba(0,0,0,.12);
+}
+.team-card h2 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  margin-bottom: .45rem;
+}
+.team-role {
+  display: inline-flex;
+  padding: .35rem .85rem;
+  border-radius: 999px;
+  font-size: .82rem;
+  font-weight: 700;
+  color: var(--sti-blue);
+  background: rgba(0,80,200,.08);
+  margin-bottom: 1rem;
+}
+.team-card p {
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  font-size: .95rem;
+  line-height: 1.65;
+}
+.team-list {
+  list-style: none;
+  display: grid;
+  gap: .55rem;
+  padding-left: 0;
+}
+.team-list li {
+  position: relative;
+  padding-left: 1.35rem;
+  color: var(--text-dark);
+  font-size: .92rem;
+}
+.team-list li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  top: .1rem;
+  color: var(--sti-gold);
+}
+
+.team-avatar {
+  width: 100%;
+  display: grid;
+  place-items: center;
+  margin-bottom: 1.35rem;
+}
+.team-avatar img {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid var(--sti-gold);
+  box-shadow: 0 10px 25px rgba(0,0,0,.12);
+  cursor: zoom-in;
+}
+
+body[data-theme='dark'] .team-section {
+  background: #020b1e;
+}
+body[data-theme='dark'] .team-card {
+  background: rgba(4, 20, 50, 0.85);
+  border-color: rgba(255,255,255,.08);
+}
+body[data-theme='dark'] .team-card h2,
+body[data-theme='dark'] .team-list li {
+  color: #ffffff;
+}
+body[data-theme='dark'] .team-role {
+  background: rgba(0,229,255,.12);
+  color: #00e5ff;
+}
+body[data-theme='dark'] .team-card p {
+  color: rgba(240,240,240,.88);
+}
+
 body[data-theme='dark'] .fl-table thead {
   background: linear-gradient(90deg, #0033a0, #0056ff);
 }
@@ -1542,7 +1586,6 @@ body[data-theme='dark'] footer {
   border-top: 1px solid rgba(255,255,255,.08);
 }
 
-/* Dark mode badge colors */
 body[data-theme='dark'] .program-badge.featured {
   color: #fcd116;
 }
@@ -1575,9 +1618,6 @@ body[data-theme='dark'] .avatar-zoom-close:hover {
   background: rgba(255, 255, 255, 0.12);
 }
 
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
 @media (max-width: 900px) {
   .about-grid { grid-template-columns: 1fr; gap: 2rem; }
   .about-card-float { position: static; margin-top: 1rem; display: inline-block; }
@@ -1625,7 +1665,6 @@ body[data-theme='dark'] .avatar-zoom-close:hover {
   .faculty-card.expanded .faculty-avatar { width: 98px; height: 98px; font-size: 1.8rem; }
 }
 
-/* Make list/table view responsive on small screens: convert to stacked rows */
 @media (max-width: 700px) {
   .faculty-list-view { width: 100%; }
   .faculty-list-view .fl-table { display: block; overflow: visible; }

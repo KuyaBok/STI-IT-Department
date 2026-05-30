@@ -1471,10 +1471,11 @@ body[data-theme='dark'] .fc-tag {
   transform: translateY(-4px);
   box-shadow: 0 16px 35px rgba(0,0,0,.12);
 }
-.team-card h2 {
+..team-card h2 {
   font-size: 1.15rem;
   font-weight: 800;
   margin-bottom: .45rem;
+  text-align: center;
 }
 .team-role {
   display: inline-flex;
@@ -1484,7 +1485,8 @@ body[data-theme='dark'] .fc-tag {
   font-weight: 700;
   color: var(--sti-blue);
   background: rgba(0,80,200,.08);
-  margin-bottom: 1rem;
+  margin-top: auto;
+  margin-bottom: 0;
 }
 .team-card p {
   color: var(--text-muted);
@@ -1513,19 +1515,27 @@ body[data-theme='dark'] .fc-tag {
 }
 
 .team-avatar {
-  width: 100%;
+  width: 144px;
+  min-width: 144px;
+  height: 144px;
+  min-height: 144px;
+  aspect-ratio: 1 / 1;
   display: grid;
   place-items: center;
+  margin-inline: auto;
   margin-bottom: 1.35rem;
+  border: 3px solid var(--sti-gold);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,.12);
 }
 .team-avatar img {
-  width: 96px;
-  height: 96px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  border-radius: 50%;
-  border: 3px solid var(--sti-gold);
-  box-shadow: 0 10px 25px rgba(0,0,0,.12);
+  border-radius: 0;
   cursor: zoom-in;
+  display: block;
 }
 
 body[data-theme='dark'] .team-section {
